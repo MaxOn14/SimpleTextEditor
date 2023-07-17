@@ -4,6 +4,7 @@ from tkinter import filedialog, colorchooser, font
 from tkinter import messagebox
 from tkinter.filedialog import *
 
+
 def change_color():
     color = colorchooser.askcolor(title="pick a color or else")
     text_area.config(fg=color[1])
@@ -24,12 +25,14 @@ def open_file():
     try:
         window.title(os.path.basename(file))
         text_area.delete(1.0, END)
-        file = open(file,"r")
+        file = open(file, "r")
         text_area.insert(1.0, file.read())
     except Exception:
         messagebox.showerror(title="Error", message=r"Couldn't read file")
     finally:
         file.close()
+
+
 def save_file():
     file = filedialog.asksaveasfilename(initialfile="untitled.txt",
                                         defaultextension=".txt",
@@ -42,7 +45,7 @@ def save_file():
         try:
             window.title(os.path.basename(file))
             file = open(file, "w")
-            file.write(text_area.get(1.0,END))
+            file.write(text_area.get(1.0, END))
         except Exception:
             messagebox.showerror(title="Error", message=r"Couldn't save file")
         finally:
@@ -107,7 +110,7 @@ color_button = Button(frame, text="color", command=change_color)
 color_button.grid(row=0, column=0)
 
 font_box = OptionMenu(frame, font_name, *font.families(), command=change_font)
-font_box.grid(row=0,column=1)
+font_box.grid(row=0, column=1)
 
 size_box = Spinbox(frame, from_=1, to=100, textvariable=font_size, command=change_font)
 size_box.grid(row=0, column=2)
@@ -123,8 +126,8 @@ file_menu.add_command(label="Save", command=save_file)
 file_menu.add_separator()
 file_menu.add_command(label="Exit", command=quit)
 
-edit_menu = Menu(menu_bar,tearoff=0)
-menu_bar.add_cascade(label="Edit",menu=edit_menu)
+edit_menu = Menu(menu_bar, tearoff=0)
+menu_bar.add_cascade(label="Edit", menu=edit_menu)
 edit_menu.add_command(label="Cut", command=cut)
 edit_menu.add_command(label="Copy", command=copy)
 edit_menu.add_command(label="Paste", command=paste)
@@ -132,6 +135,5 @@ edit_menu.add_command(label="Paste", command=paste)
 help_menu = Menu(menu_bar, tearoff=0)
 menu_bar.add_cascade(label="Help", menu=help_menu)
 help_menu.add_command(label="About", command=about)
-
 
 window.mainloop()
